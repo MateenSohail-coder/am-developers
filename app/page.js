@@ -1,4 +1,4 @@
-// import Footer from "@/components/services/Footer";
+import Footer from "@/components/services/Footer";
 import About from "@/components/main/About";
 import HeroSection from "@/components/main/Herosection";
 import Offer from "@/components/main/Offer";
@@ -16,7 +16,7 @@ export default function Home() {
       <Services />
       <Testimels />
       <Offer />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

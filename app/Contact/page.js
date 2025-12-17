@@ -4,44 +4,44 @@ import Bar from "@/components/services/bar";
 import { gsap } from "gsap";
 import Navbar from "@/components/services/Navbar";
 import Footer from "@/components/services/Footer";
+import Button from "@/components/services/Button";
+import Backbar from "@/components/services/Back";
 
 export default function Contact() {
   const formRef = useRef(null);
   const addressRef = useRef(null);
-  const inputRefs = useRef([]);
 
-  // Form fields data matching the picture exactly
+  // Form fields data with placeholders
   const formFields = [
     {
       id: "name",
-      label: "Name",
+      label: "Enter Your Name",
       type: "text",
       required: true,
-      placeholder: "",
+      placeholder: "Enter your full name",
       itemProp: "name",
     },
     {
       id: "subject",
-      label: "Subject",
+      label: "Enter Subject",
       type: "text",
       required: true,
-      placeholder: "",
+      placeholder: "Enter your subject",
     },
     {
       id: "phone",
-      label: "Phone Number",
+      label: "Enter Phone Number",
       type: "tel",
       required: true,
-      placeholder: "",
+      placeholder: "+92 300 1234567",
       itemProp: "telephone",
     },
     {
       id: "projectDetails",
-      label: "Project Details",
+      label: "Enter Project Details",
       type: "textarea",
       required: true,
-      placeholder: "",
-      rows: 4,
+      placeholder: "Tell us about your project...",
     },
   ];
 
@@ -64,8 +64,8 @@ export default function Contact() {
       delay: 0.4,
     });
 
-    // Stagger animation for form inputs exactly like the picture
-    gsap.from(".form-field", {
+    // Stagger animation for form inputs
+    gsap.from(".input-container", {
       y: 20,
       opacity: 0,
       duration: 0.5,
@@ -89,16 +89,14 @@ export default function Contact() {
     console.log("Form submitted");
   };
 
-  const addToRefs = (el) => {
-    if (el && !inputRefs.current.includes(el)) {
-      inputRefs.current.push(el);
-    }
-  };
-
   return (
     <>
-      <Navbar />
-      <Bar desktopText="Contact Us" mobileText="Contact Us" id="contact" />
+      <Backbar />
+      <Bar
+        desktopText="Send Us Proposal !"
+        mobileText="Contact Us"
+        id="contact"
+      />
 
       {/* Structured Data for SEO */}
       <script
@@ -164,70 +162,167 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Right Side: Form Section - EXACTLY LIKE THE PICTURE */}
+        {/* Right Side: Form Section */}
         <div ref={formRef} className="w-full md:w-1/2">
           <form
             onSubmit={handleSubmit}
-            className="space-y-5"
+            className="space-y-6"
             itemScope
             itemType="https://schema.org/ContactPage"
           >
-            {/* Map through form fields */}
+            {/* Custom Uiverse Input Components */}
             {formFields.map((field, index) => (
-              <div
-                key={field.id}
-                className="form-field"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <label
-                  htmlFor={field.id}
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  {field.label}
-                  {field.required && (
-                    <span className="text-red-500 ml-1">*</span>
-                  )}
+              <div key={field.id} className="input-container">
+                <input
+                  id={field.id}
+                  name={field.id}
+                  type={field.type}
+                  className="input"
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  {...(field.itemProp ? { itemProp: field.itemProp } : {})}
+                />
+                <label htmlFor={field.id} className="label">
+                  {field.label}{" "}
+                  {field.required && <span className="text-red-500">*</span>}
                 </label>
-
-                {field.type === "textarea" ? (
-                  <textarea
-                    ref={addToRefs}
-                    id={field.id}
-                    name={field.id}
-                    placeholder={field.placeholder}
-                    rows={field.rows || 4}
-                    className="w-full border-2 border-red-500 rounded-md px-4 py-3 text-gray-900 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
-                    required={field.required}
-                    {...(field.itemProp ? { itemProp: field.itemProp } : {})}
-                  />
-                ) : (
-                  <input
-                    ref={addToRefs}
-                    type={field.type}
-                    id={field.id}
-                    name={field.id}
-                    placeholder={field.placeholder}
-                    className="w-full border-2 border-red-500 rounded-md px-4 py-3 text-gray-900 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-500 transition-colors"
-                    required={field.required}
-                    {...(field.itemProp ? { itemProp: field.itemProp } : {})}
-                  />
-                )}
+                <div className="topline"></div>
+                <div className="underline"></div>
               </div>
             ))}
 
-            {/* Submit Button */}
+            {/* Submit Button - Same Style as Inputs */}
             <div className="pt-2 submit-btn">
-              <button
-                type="submit"
-                className="w-full bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 active:bg-red-800 transition-colors duration-200"
-                aria-label="Send Us"
-              >
-                Send Us
-              </button>
+              <div className="input-container">
+                <button
+                  type="submit"
+                  className="input submit-input"
+                  aria-label="Send Us"
+                >
+                  Send Us
+                </button>
+                <label className="label">Send Us</label>
+                <div className="topline"></div>
+                <div className="underline"></div>
+              </div>
             </div>
           </form>
         </div>
       </section>
+
+      {/* Updated Custom Styles */}
+      <style jsx>{`
+        .input-container {
+          position: relative;
+          margin-bottom: 1.5rem;
+        }
+
+        .input,
+        .submit-input {
+          padding: 14px 10px;
+          height: 48px;
+          border: 2px solid #e63946;
+          font-size: 16px;
+          background: transparent;
+          outline: none;
+          box-shadow: 7px 7px 0px 0px #e63946;
+          transition: all 0.5s;
+          width: 100%;
+          color: #333;
+          border-radius: 0;
+        }
+
+        .submit-input {
+          font-weight: 600;
+          cursor: pointer;
+          color: #e63946 !important;
+          background: white;
+        }
+
+        .submit-input:hover {
+          box-shadow: 5px 5px 0px 0px #e63946;
+          transform: translate(2px, 2px);
+          transition: all 0.3s;
+        }
+
+        .input::placeholder {
+          color: #999;
+          opacity: 1;
+        }
+
+        .input:focus,
+        .submit-input:focus {
+          box-shadow: none;
+          border-color: #e63946;
+          transition: all 0.5s;
+        }
+
+        .label {
+          position: absolute;
+          top: 14px;
+          left: 10px;
+          background-color: white !important;
+          color: #e63946;
+          transition: all 0.5s;
+          transform: scale(0);
+          z-index: 20;
+          pointer-events: none;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 0 4px;
+        }
+
+        .input-container .topline {
+          position: absolute;
+          content: "";
+          background-color: #e63946;
+          width: 0%;
+          height: 2px;
+          right: 0;
+          top: 0;
+          transition: all 0.5s;
+          z-index: 1;
+        }
+
+        .input-container input:focus ~ .topline,
+        .input-container .submit-input:focus ~ .topline {
+          width: 35%;
+          transition: all 0.5s;
+        }
+
+        .input-container .underline {
+          position: absolute;
+          content: "";
+          background-color: #e63946;
+          width: 0%;
+          height: 2px;
+          right: 0;
+          bottom: 0;
+          transition: all 0.5s;
+          z-index: 1;
+        }
+
+        .input-container input:focus ~ .underline,
+        .input-container .submit-input:focus ~ .underline {
+          width: 100%;
+          transition: all 0.5s;
+        }
+
+        .input-container input:focus ~ .label,
+        .input-container .submit-input:focus ~ .label {
+          top: -8px;
+          transform: scale(1);
+          transition: all 0.5s;
+        }
+
+        /* Textarea styles */
+        .input[type="textarea"] {
+          height: 120px;
+          resize: vertical;
+          padding: 14px 10px;
+        }
+      `}</style>
+
       <Footer />
     </>
   );

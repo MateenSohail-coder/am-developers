@@ -3,8 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Bar from "../services/bar";
-import { ArrowRightCircle } from "lucide-react";
-import { ArrowLeftCircle } from "lucide-react";
+import { ArrowRightCircle, ArrowLeftCircle } from "lucide-react";
 
 const testimonials = [
   {
@@ -82,7 +81,6 @@ export default function Testimonials() {
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const id = setInterval(next, 3000);
     return () => clearInterval(id);
   }, [next, isAutoPlaying]);
@@ -133,49 +131,48 @@ export default function Testimonials() {
           </div>
 
           <div className="flex flex-col items-center gap-12 lg:gap-20">
-            {/* Enhanced Avatar Carousel - MOBILE: 1 client, DESKTOP: All clients */}
+            {/* Avatar Carousel Wrapper - fixed height to avoid layout shift */}
+            {/* Avatar Carousel Wrapper - fixed height to avoid layout shift */}
             <div
-              className="relative mb-12"
+              className="relative mb-12 h-[160px] md:h-[220px] flex items-end justify-center"
               role="tablist"
               aria-label="Testimonial navigation"
             >
-              {/* Mobile: Show only 1 client */}
-              <div className="md:hidden flex justify-center">
-                {testimonials
-                  .slice(current, current + 1)
-                  .map((testimonial, index) => (
-                    <button
-                      key={testimonial.id}
-                      onClick={() => {
-                        setCurrent(index);
-                        pauseAutoPlay();
-                      }}
-                      onMouseEnter={pauseAutoPlay}
-                      onMouseLeave={resumeAutoPlay}
-                      className={[
-                        "relative group cursor-pointer transition-all duration-500 ease-out",
-                        "h-28 w-28 scale-110 border-4 border-[#E63946]",
-                        "rounded-full overflow-hidden bg-white",
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                      aria-selected={true}
-                      aria-controls="testimonial-content"
-                    >
-                      <Image
-                        src={testimonial.image}
-                        alt={`${testimonial.name}, ${testimonial.role}`}
-                        fill
-                        className="object-cover rounded-full transition-all duration-300"
-                        sizes="120px"
-                        priority={true}
-                      />
-                    </button>
-                  ))}
+              {/* Mobile: single avatar, centered at bottom */}
+              <div className="md:hidden flex justify-center absolute bottom-0">
+                {testimonials.slice(current, current + 1).map((testimonial) => (
+                  <button
+                    key={testimonial.id}
+                    onClick={() => {
+                      setCurrent(0);
+                      pauseAutoPlay();
+                    }}
+                    onMouseEnter={pauseAutoPlay}
+                    onMouseLeave={resumeAutoPlay}
+                    className={[
+                      "relative group cursor-pointer transition-transform duration-500 ease-out",
+                      "h-28 w-28 rounded-full overflow-hidden bg-white border-4 border-gray-800", // Dark gray border
+                      "transform scale-110",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    aria-selected={true}
+                    aria-controls="testimonial-content"
+                  >
+                    <Image
+                      src={testimonial.image}
+                      alt={`${testimonial.name}, ${testimonial.role}`}
+                      fill
+                      className="object-cover rounded-full transition-all duration-300"
+                      sizes="120px"
+                      priority={true}
+                    />
+                  </button>
+                ))}
               </div>
 
-              {/* Desktop: Show all clients with hierarchy */}
-              <div className="hidden md:flex items-end justify-center gap-4 lg:gap-8">
+              {/* Desktop: all avatars, fixed size + transforms only */}
+              <div className="hidden md:flex items-end justify-center gap-4 lg:gap-8 absolute bottom-0">
                 {testimonials.map((testimonial, index) => {
                   const isActive = index === current;
                   const isNext = index === (current + 1) % testimonials.length;
@@ -193,13 +190,13 @@ export default function Testimonials() {
                       onMouseEnter={pauseAutoPlay}
                       onMouseLeave={resumeAutoPlay}
                       className={[
-                        "relative group cursor-pointer transition-all duration-500 ease-out hover:z-10 border-4 border-[#E63946]",
+                        "relative group cursor-pointer transition-transform duration-500 ease-out hover:z-10",
+                        "h-32 w-32 lg:h-36 lg:w-36 rounded-full overflow-hidden bg-white",
                         isActive
-                          ? "h-40 w-40 lg:h-44 lg:w-44 scale-110"
+                          ? "border-4 border-[#E63946] transform scale-110 translate-y-2 z-20" // Dark gray for active
                           : isNext || isPrevious
-                          ? "h-32 w-32 lg:h-36 lg:w-36 scale-105"
-                          : "h-28 w-28 lg:h-32 lg:w-32 opacity-70 hover:opacity-90 hover:scale-105",
-                        "rounded-full overflow-hidden bg-white",
+                          ? "border-4 border-[#E63946]/50 transform scale-105 translate-y-1" // Medium gray for adjacent
+                          : "border-4 border-[#E63946]/50 opacity-70 hover:opacity-90 hover:scale-105", // Light gray for others
                       ]
                         .filter(Boolean)
                         .join(" ")}
@@ -216,7 +213,7 @@ export default function Testimonials() {
                         priority={isActive}
                       />
 
-                      {/* Name tooltip on hover */}
+                      {/* Name tooltip */}
                       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30">
                         {testimonial.name}
                       </div>
@@ -226,7 +223,7 @@ export default function Testimonials() {
               </div>
             </div>
 
-            {/* Enhanced Testimonial Card */}
+            {/* Testimonial Card */}
             <article
               id="testimonial-content"
               className="group relative w-full max-w-4xl mx-auto"
@@ -266,7 +263,7 @@ export default function Testimonials() {
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-r from-[#E63946]/20 to-[#FACC15]/20 rounded-2xl blur-xl rotate-12 animate-pulse"></div>
             </article>
 
-            {/* Enhanced Dots */}
+            {/* Dots */}
             <nav
               className="flex gap-3"
               aria-label="Testimonial dots navigation"
@@ -290,7 +287,7 @@ export default function Testimonials() {
               ))}
             </nav>
 
-            {/* Enhanced Navigation */}
+            {/* Navigation buttons */}
             <div className="w-full max-w-2xl">
               <div className="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden shadow-2xl">
                 <button
@@ -321,7 +318,7 @@ export default function Testimonials() {
 
             {/* Auto-play indicator */}
             <div
-              className={`flex items-center gap-2 border-1 p-4 rounded-2xl text-sm text-slate-500 ${
+              className={`flex items-center gap-2 border p-4 rounded-2xl text-sm text-slate-500 ${
                 isAutoPlaying ? "border-green-400" : "border-yellow-400"
               }`}
             >

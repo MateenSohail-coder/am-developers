@@ -154,10 +154,17 @@ const HeroSection = () => {
         <div className="absolute -bottom-24 -left-10 h-52 w-52 rounded-full bg-[#0B1F3F]/5 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-16 xl:px-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto px-2 lg:px-10 xl:px-14 relative z-10">
+        <div
+          className="
+          flex flex-col-reverse
+          lg:grid lg:grid-cols-2
+          gap-12 lg:gap-16
+          items-center
+        "
+        >
           {/* LEFT: TEXT */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 order-2 lg:order-1">
             <h1
               ref={titleRef}
               className="text-5xl sm:text-6xl lg:text-8xl font-extrabold tracking-tight text-[#0B1F3F]"
@@ -233,10 +240,17 @@ const HeroSection = () => {
           </div>
 
           {/* RIGHT: IMAGE CARD */}
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end w-full lg:w-auto order-1 lg:order-2">
             <div
               ref={imageWrapRef}
-              className="relative w-full max-w-md rounded-3xl bg-gradient-to-br from-[#E63946]/8 via-white to-[#0B1F3F]/8 p-4 shadow-xl"
+              className="
+                relative 
+                w-full 
+                max-w-sm sm:max-w-md 
+                rounded-3xl 
+                bg-gradient-to-br from-[#E63946]/8 via-white to-[#0B1F3F]/8 
+                p-4 shadow-xl
+              "
             >
               <div
                 ref={imageRef}
