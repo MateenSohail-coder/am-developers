@@ -3,7 +3,7 @@
 const Bar = ({ desktopText, mobileText, id }) => {
   return (
     <div id={id} className="w-full ">
-      <div className="relative w-full h-25 sm:h-35 bg-gradient-to-r from-[#f2445a] to-[#f26b6b] flex items-center md:gap-20 px-8 sm:px-12 text-white text-3xl sm:text-4xl lg:text-6xl font-bold shadow-lg">
+      <div className="relative w-full h-25 sm:h-35 bg-gradient-to-r from-[#f2445a] to-[#f68484] flex items-center md:gap-20 px-8 sm:px-20 text-white text-3xl sm:text-4xl lg:text-6xl font-bold shadow-[12px_12px_0_#d10000] -translate-x-[7px] -translate-y-[15px] active:shadow-[4px_4px_0_#d10000]  active:translate-x-0 active:translate-y-0 transition-all duration-200 rounded-none origin-bottom-right">
         <p className="block md:hidden">{mobileText}</p>
         <p className="hidden md:block">{desktopText}</p>
         {/* arrow container */}
@@ -15,8 +15,8 @@ const Bar = ({ desktopText, mobileText, id }) => {
               {/* arrow head (slightly tilted) */}
               <span
                 className="block w-0 h-0 md:border-t-[18px] md:border-b-[18px] md:border-l-[28px] border-t-[12px] border-b-[12px] border-l-[22px]
-                           border-t-transparent border-b-transparent border-l-white
-                           "
+                          border-t-transparent border-b-transparent border-l-white
+                        "
               />
             </div>
           </div>

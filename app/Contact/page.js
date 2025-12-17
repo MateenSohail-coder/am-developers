@@ -1,17 +1,21 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 import Bar from "@/components/services/bar";
-import { gsap } from "gsap";
-import Navbar from "@/components/services/Navbar";
 import Footer from "@/components/services/Footer";
 import Button from "@/components/services/Button";
 import Backbar from "@/components/services/Back";
 
+gsap.registerPlugin(useGSAP);
+
 export default function Contact() {
+  const containerRef = useRef(null);
   const formRef = useRef(null);
   const addressRef = useRef(null);
 
-  // Form fields data with placeholders
   const formFields = [
     {
       id: "name",
@@ -37,6 +41,13 @@ export default function Contact() {
       itemProp: "telephone",
     },
     {
+      id: "service",
+      label: "Enter Service",
+      type: "text",
+      required: true,
+      placeholder: "Enter Needed service",
+    },
+    {
       id: "projectDetails",
       label: "Enter Project Details",
       type: "textarea",
@@ -45,44 +56,51 @@ export default function Contact() {
     },
   ];
 
-  useEffect(() => {
-    // Animate address section from left
-    gsap.from(addressRef.current, {
-      x: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      delay: 0.2,
-    });
+  useGSAP(
+    () => {
+      // address and form entrance
+      if (addressRef.current) {
+        gsap.from(addressRef.current, {
+          x: -100,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.2,
+        });
+      }
 
-    // Animate form container from right
-    gsap.from(formRef.current, {
-      x: 100,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      delay: 0.4,
-    });
+      if (formRef.current) {
+        gsap.from(formRef.current, {
+          x: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.4,
+        });
+      }
 
-    // Stagger animation for form inputs
-    gsap.from(".input-container", {
-      y: 20,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power2.out",
-      stagger: 0.1,
-      delay: 0.6,
-    });
+      // inputs + button (scoped selectors)
+      const tl = gsap.timeline({ delay: 0.6 });
 
-    // Button animation
-    gsap.from(".submit-btn", {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      ease: "power2.out",
-      delay: 1,
-    });
-  }, []);
+      tl.from(".input-container", {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.1,
+      }).from(
+        ".submit-btn",
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      );
+    },
+    { scope: containerRef }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -98,7 +116,7 @@ export default function Contact() {
         id="contact"
       />
 
-      {/* Structured Data for SEO */}
+      {/* Structured Data for SEO (keep only one ContactPage script) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -120,46 +138,137 @@ export default function Contact() {
         }}
       />
 
-      <section className="flex flex-col md:flex-row justify-between items-start p-6 md:p-12 gap-10 md:gap-16">
+      <section
+        ref={containerRef}
+        className="flex flex-col md:flex-row justify-between items-start p-6 md:p-12 gap-10 md:gap-16"
+      >
         {/* Left Side: Address Section */}
         <div
           ref={addressRef}
-          className="w-full md:w-1/2 text-gray-800"
+          className="w-full md:w-1/2"
           itemScope
           itemType="https://schema.org/PostalAddress"
         >
-          <h2 className="text-2xl font-semibold mb-6">Our Address</h2>
+          <div
+            className="space-y-8 bg-white/80 backdrop-blur-xl p-8 lg:p-12 border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 rounded-none origin-bottom-right"
+            style={{
+              "--btn-height": "auto",
+              "--btn-font-size": "16px",
+              "--btn-bg": "#ffffff",
+              "--btn-color": "#0b1f3f",
+              "--btn-border-color": "#e63946",
+              "--btn-shadow": "8px",
+              "--btn-hover-bg": "#0b1f3f",
+              "--btn-hover-color": "#ffffff",
+            }}
+          >
+            {/* Street Address */}
+            <div className="flex items-start gap-6 group">
+              <div className="w-14 h-14 mt-1 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] flex items-center justify-center shrink-0 group-hover:shadow-[8px_8px_0_#E63946] group-hover:scale-105 transition-all duration-200 rounded-none">
+                <svg
+                  className="w-7 h-7 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-black uppercase tracking-[0.1em] text-slate-600 mb-3 border-b-2 border-[#E63946]/30 pb-1">
+                  Address
+                </p>
+                <p
+                  className="text-2xl md:text-3xl font-black text-[#0B1F3F] leading-tight group-hover:text-[#E63946] transition-all duration-200 drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]"
+                  itemProp="streetAddress"
+                >
+                  123 Main Street
+                </p>
+                <p
+                  className="text-xl font-black text-slate-700 mt-2 tracking-tight"
+                  itemProp="addressLocality"
+                >
+                  Lahore, Punjab, Pakistan
+                </p>
+              </div>
+            </div>
 
-          <div className="space-y-3">
-            <p className="text-gray-700" itemProp="streetAddress">
-              123 Main Street
-            </p>
-            <p className="text-gray-700">
-              <span itemProp="addressLocality">Lahore</span>,{" "}
-              <span itemProp="addressRegion">Punjab</span>,{" "}
-              <span itemProp="addressCountry">Pakistan</span>
-            </p>
-            <p className="text-gray-700">
-              Phone:{" "}
-              <a
-                href="tel:+923001234567"
-                className="text-blue-600 hover:underline"
-                itemProp="telephone"
-              >
-                +92 300 1234567
-              </a>
-            </p>
-            <p className="text-gray-700">
-              Email:{" "}
-              <a
-                href="mailto:contact@example.com"
-                className="text-blue-600 hover:underline"
-                itemProp="email"
-              >
-                contact@example.com
-              </a>
-            </p>
+            {/* Phone */}
+            <div className="flex items-start gap-6 group">
+              <div className="w-14 h-14 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] flex items-center justify-center shrink-0 group-hover:shadow-[8px_8px_0_#E63946] group-hover:scale-105 transition-all duration-200 rounded-none">
+                <svg
+                  className="w-7 h-7 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-black uppercase tracking-[0.1em] text-slate-600 mb-3 border-b-2 border-[#E63946]/30 pb-1">
+                  Phone
+                </p>
+                <a
+                  href="tel:+923001234567"
+                  className="block text-sm sm:text-xl md:text-2xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
+                  itemProp="telephone"
+                >
+                  +92 300 1234567
+                </a>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-start gap-6 group">
+              <div className="w-14 h-14 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] flex items-center justify-center shrink-0 group-hover:shadow-[8px_8px_0_#E63946] group-hover:scale-105 transition-all duration-200 rounded-none">
+                <svg
+                  className="w-7 h-7 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-black uppercase tracking-[0.1em] text-slate-600 mb-3 border-b-2 border-[#E63946]/30 pb-1">
+                  Email
+                </p>
+                <a
+                  href="mailto:contact@example.com"
+                  className="block text-sm sm:text-xl md:text-2xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
+                  itemProp="email"
+                >
+                  contact@example.com
+                </a>
+              </div>
+            </div>
           </div>
+
+          {/* JSON-LD Script for PostalAddress only if you still want it */}
+          {/* You can remove this if ContactPage script above is enough */}
         </div>
 
         {/* Right Side: Form Section */}
@@ -170,18 +279,28 @@ export default function Contact() {
             itemScope
             itemType="https://schema.org/ContactPage"
           >
-            {/* Custom Uiverse Input Components */}
-            {formFields.map((field, index) => (
+            {formFields.map((field) => (
               <div key={field.id} className="input-container">
-                <input
-                  id={field.id}
-                  name={field.id}
-                  type={field.type}
-                  className="input"
-                  placeholder={field.placeholder}
-                  required={field.required}
-                  {...(field.itemProp ? { itemProp: field.itemProp } : {})}
-                />
+                {field.type === "textarea" ? (
+                  <textarea
+                    id={field.id}
+                    name={field.id}
+                    className="input textarea-input"
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    {...(field.itemProp ? { itemProp: field.itemProp } : {})}
+                  />
+                ) : (
+                  <input
+                    id={field.id}
+                    name={field.id}
+                    type={field.type}
+                    className="input"
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    {...(field.itemProp ? { itemProp: field.itemProp } : {})}
+                  />
+                )}
                 <label htmlFor={field.id} className="label">
                   {field.label}{" "}
                   {field.required && <span className="text-red-500">*</span>}
@@ -191,26 +310,22 @@ export default function Contact() {
               </div>
             ))}
 
-            {/* Submit Button - Same Style as Inputs */}
             <div className="pt-2 submit-btn">
-              <div className="input-container">
-                <button
-                  type="submit"
-                  className="input submit-input"
-                  aria-label="Send Us"
-                >
-                  Send Us
-                </button>
-                <label className="label">Send Us</label>
-                <div className="topline"></div>
-                <div className="underline"></div>
-              </div>
+              <Button
+                text="Send Us"
+                fullWidth={true}
+                fontSize={25}
+                bg="#0B1F3F"
+                color="white"
+                hoverBg="white"
+                hoverColor="#E63946"
+                shadowSize={10}
+              />
             </div>
           </form>
         </div>
       </section>
 
-      {/* Updated Custom Styles */}
       <style jsx>{`
         .input-container {
           position: relative;
@@ -232,6 +347,12 @@ export default function Contact() {
           border-radius: 0;
         }
 
+        .textarea-input {
+          height: 120px;
+          resize: vertical;
+          padding: 14px 10px;
+        }
+
         .submit-input {
           font-weight: 600;
           cursor: pointer;
@@ -245,12 +366,14 @@ export default function Contact() {
           transition: all 0.3s;
         }
 
-        .input::placeholder {
+        .input::placeholder,
+        .textarea-input::placeholder {
           color: #999;
           opacity: 1;
         }
 
         .input:focus,
+        .textarea-input:focus,
         .submit-input:focus {
           box-shadow: none;
           border-color: #e63946;
@@ -285,6 +408,7 @@ export default function Contact() {
         }
 
         .input-container input:focus ~ .topline,
+        .input-container textarea:focus ~ .topline,
         .input-container .submit-input:focus ~ .topline {
           width: 35%;
           transition: all 0.5s;
@@ -303,23 +427,18 @@ export default function Contact() {
         }
 
         .input-container input:focus ~ .underline,
+        .input-container textarea:focus ~ .underline,
         .input-container .submit-input:focus ~ .underline {
           width: 100%;
           transition: all 0.5s;
         }
 
         .input-container input:focus ~ .label,
+        .input-container textarea:focus ~ .label,
         .input-container .submit-input:focus ~ .label {
           top: -8px;
           transform: scale(1);
           transition: all 0.5s;
-        }
-
-        /* Textarea styles */
-        .input[type="textarea"] {
-          height: 120px;
-          resize: vertical;
-          padding: 14px 10px;
         }
       `}</style>
 

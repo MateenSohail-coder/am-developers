@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Bar from "../services/bar";
+import Button from "../services/Button";
+import Link from "next/link";
 
 export default function About() {
   const sectionRef = useRef(null);
@@ -55,16 +57,62 @@ export default function About() {
             {/* IMAGE SIDE */}
             <div
               ref={imageRef}
-              className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[420px] rounded-3xl border-4 border-t-[#E63946] border-b-[#E63946] border-l-[#0B1F3F] border-r-[#0B1F3F] overflow-hidden bg-slate-100 shadow-lg"
+              className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[420px] border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] group hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-300 ease-out rounded-none bg-slate-100/50 backdrop-blur-sm overflow-hidden origin-bottom-right"
             >
               <Image
-                src="/about.jpg" // replace with your image path
+                src="/about.jpg"
                 alt="AM Devs team working on digital solutions"
                 fill
                 priority
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
+                className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.05] group-hover:brightness-[1.05] will-change-transform"
               />
+
+              {/* Brutalist Overlay Badge */}
+              <div className="absolute top-6 right-6 w-20 h-20 bg-gradient-to-br from-[#E63946]/95 to-[#FACC15]/95 border-4 border-[#0B1F3F] shadow-[6px_6px_0_#0B1F3F] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[8px_8px_0_#0B1F3F] group-hover:scale-110 group-hover:rotate-6 rounded-none z-10 backdrop-blur-sm">
+                <svg
+                  className="w-8 h-8 text-white drop-shadow-[2px_2px_0_#0B1F3F] transition-transform duration-500 ease-out group-hover:rotate-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </div>
+
+              {/* Brutalist Bottom Bar */}
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-r from-[#0B1F3F]/98 to-[#E63946]/98 border-t-4 border-t-white/80 backdrop-blur-md flex items-center pl-8 pr-8 z-20 shadow-[0_-4px_0_rgba(230,57,70,0.3)] group-hover:shadow-[0_-6px_0_rgba(230,57,70,0.5)] transition-shadow duration-500 ease-out">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/30 border-3 border-white shadow-[4px_4px_0_white] backdrop-blur-sm flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[6px_6px_0_white] group-hover:scale-110 rounded-none">
+                    <svg
+                      className="w-6 h-6 text-white drop-shadow-[1px_1px_0_#0B1F3F] transition-transform duration-500 ease-out group-hover:rotate-360"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                  <div className="transition-all duration-500 ease-out group-hover:translate-x-2">
+                    <p className="text-white font-black text-lg uppercase tracking-[0.15em] drop-shadow-[2px_2px_0_#0B1F3F] leading-tight">
+                      AM Devs
+                    </p>
+                    <p className="text-white/95 font-black text-sm tracking-[0.1em] drop-shadow-[1px_1px_0_#0B1F3F]">
+                      Digital Solutions
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* TEXT SIDE */}
@@ -143,9 +191,9 @@ export default function About() {
 
               {/* CTA */}
               <div className="pt-2 flex flex-col items-center md:items-start gap-2">
-                <button className="inline-flex items-center justify-center rounded-xl bg-[#E63946] px-7 md:px-9 py-3 md:py-3.5 text-sm md:text-base font-semibold text-white shadow-md hover:bg-[#d3313e] hover:shadow-lg transition-colors">
-                  Book a Free Consultation
-                </button>
+                <Link href="/contact">
+                  <Button text="Book a Free Consultation" />
+                </Link>
                 <p className="text-xs md:text-sm text-slate-500">
                   No pressure, no spam — just a 20‑minute strategy call.
                 </p>

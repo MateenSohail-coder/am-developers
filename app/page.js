@@ -6,6 +6,8 @@ import Services from "@/components/main/Services";
 import Testimels from "@/components/main/Testimels";
 import Navbar from "@/components/services/Navbar";
 import React from "react";
+import CTA from "@/components/services/CTA";
+import SquareLoader from "@/components/services/Loader";
 
 export default function Home() {
   return (
@@ -16,7 +18,9 @@ export default function Home() {
       <Services />
       <Testimels />
       <Offer />
+      <CTA />
       <Footer />
+      <SquareLoader />
     </div>
   );
 }

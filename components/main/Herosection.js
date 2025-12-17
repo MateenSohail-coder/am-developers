@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../services/Button";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -219,19 +220,14 @@ const HeroSection = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row gap-8 pt-2">
               <Link href="/contact">
-                <button
-                  ref={primaryBtnRef}
-                  className="bg-[#E63946] text-white font-semibold px-7 py-3 rounded-xl text-sm lg:text-base hover:bg-[#d62f3c] transition-colors"
-                >
-                  Start Project ➔
-                </button>
+                <Button text="Start Project ➔" fontSize={20} shadowSize={10} />
               </Link>
-              <Link href="/services">
+              <Link href="#services">
                 <button
                   ref={secondaryBtnRef}
-                  className="border border-[#0B1F3F]/30 px-7 py-3 rounded-xl font-semibold text-sm lg:text-base text-[#0B1F3F] hover:bg-[#0B1F3F] hover:text-white transition-colors"
+                  className="border border-[#0B1F3F]/30 px-7 py-5 rounded-xl font-semibold text-sm lg:text-base text-[#0B1F3F] hover:bg-[#0B1F3F] hover:text-white transition-colors"
                 >
                   View Work
                 </button>
@@ -244,32 +240,58 @@ const HeroSection = () => {
             <div
               ref={imageWrapRef}
               className="
-                relative 
-                w-full 
-                max-w-sm sm:max-w-md 
-                rounded-3xl 
-                bg-gradient-to-br from-[#E63946]/8 via-white to-[#0B1F3F]/8 
-                p-4 shadow-xl
-              "
+      relative 
+      w-full 
+      max-w-sm sm:max-w-md 
+      border-4 border-[#E63946] 
+      bg-gradient-to-br from-[#E63946]/10 via-white/90 to-[#0B1F3F]/10 
+      p-6 shadow-[8px_8px_0_#E63946] 
+      hover:shadow-[12px_12px_0_#E63946] 
+      hover:-translate-x-[4px] hover:-translate-y-[4px]
+      active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0
+      transition-all duration-300 ease-out 
+      rounded-none backdrop-blur-sm origin-bottom-right group
+    "
             >
+              {/* Brutalist Image Container */}
               <div
                 ref={imageRef}
-                className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100"
+                className="relative w-full aspect-[4/3] border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] hover:shadow-[10px_10px_0_#E63946] hover:-translate-x-[3px] hover:-translate-y-[3px] transition-all duration-400 ease-out rounded-none bg-slate-100/50 overflow-hidden group-hover:scale-[1.02]"
               >
                 <Image
                   src={images[currentImage]}
                   alt={services[currentImage]}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.08] group-hover:brightness-[1.05] will-change-transform"
                   priority
                   quality={90}
                 />
+
+                {/* Brutalist Corner Accent */}
+                <div className="absolute top-3 right-3 w-12 h-12 bg-gradient-to-br from-[#E63946]/90 to-[#FACC15]/90 border-3 border-[#0B1F3F] shadow-[4px_4px_0_#0B1F3F] flex items-center justify-center group-hover:shadow-[6px_6px_0_#0B1F3F] group-hover:scale-110 transition-all duration-500 ease-out rounded-none z-10">
+                  <svg
+                    className="w-5 h-5 text-white drop-shadow-[1px_1px_0_#0B1F3F]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
               </div>
 
-              <div ref={serviceNameRef} className="mt-4 text-center">
-                <p className="text-sm lg:text-xl font-mono font-bold text-[#0B1F3F] tracking-wide">
-                  {services[currentImage]}
-                </p>
+              {/* Brutalist Service Name */}
+              <div ref={serviceNameRef} className="mt-6 text-center">
+                <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#0B1F3F]/95 to-[#E63946]/95 border-3 border-[#E63946] shadow-[6px_6px_0_#E63946] hover:shadow-[8px_8px_0_#E63946] hover:-translate-x-[2px] hover:-translate-y-[2px] active:shadow-[3px_3px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-300 ease-out rounded-none backdrop-blur-sm group-hover:bg-gradient-to-r group-hover:from-[#E63946]/95 group-hover:to-[#0B1F3F]/95">
+                  <p className="text-base lg:text-xl font-black uppercase tracking-[0.15em] text-white drop-shadow-[2px_2px_0_#E63946] leading-tight group-hover:drop-shadow-[3px_3px_0_#FACC15]">
+                    {services[currentImage]}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

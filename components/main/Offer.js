@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Button from "../services/Button";
 
 export default function Offer() {
   return (
@@ -77,14 +78,12 @@ export default function Offer() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center pt-8 w-full px-6 sm:px-0">
-              <button className="group relative px-10 py-5 bg-gradient-to-r from-[#E63946] to-[#d6303d] text-white font-bold text-lg sm:text-xl rounded-xl shadow-2xl border-2 border-white/20 backdrop-blur-sm overflow-hidden min-w-[240px] transition-all duration-300 hover:scale-105 active:scale-95">
+              <button className="group relative px-10 py-5 bg-gradient-to-r from-[#E63946] to-[#d6303d] text-white font-bold text-lg sm:text-xl rounded-0 shadow-2xl border-2 border-white/20 backdrop-blur-sm overflow-hidden min-w-[240px] transition-all duration-300 hover:scale-105 active:scale-95">
                 <span className="relative z-10">Get Free Proposal</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/30 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </button>
 
-              <button className="px-10 py-5 bg-white/20 backdrop-blur-xl text-white font-bold text-lg sm:text-xl rounded-xl border-2 border-white/30 hover:bg-white/30 hover:shadow-2xl transition-all duration-300 min-w-[200px] hover:scale-105 active:scale-95">
-                View Our Work
-              </button>
+              <Button text="View Services" />
             </div>
           </div>
         </div>

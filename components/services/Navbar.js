@@ -26,8 +26,8 @@ const NAV_ITEMS = [
   { href: "#about", label: "About", key: "about" },
   { href: "#services", label: "Services", key: "services" },
   { href: "#clients", label: "Clients", key: "clients" },
-  { href: "#work", label: "Work", key: "work" },
-  { href: "/contact", label: "Contact", key: "contact", isSpecial: true },
+  { href: "/faqs", label: "FAQS", key: "work" },
+  { href: "/contact", label: "Contact ➔", key: "contact", isSpecial: true },
 ];
 
 // Optimized BottomMenu with perfect spacing
@@ -56,7 +56,7 @@ const BottomMenu = memo(({ isVisible, onClose }) => (
               <Button
                 text={item.label}
                 height={42}
-                fontSize={14}
+                fontSize={20}
                 shadowSize={6}
               />
             </Link>
@@ -65,14 +65,14 @@ const BottomMenu = memo(({ isVisible, onClose }) => (
         <li>
           <Link href="/contact">
             <Button
-              text="Contact"
+              text="Contact ➔"
               height={42}
-              fontSize={14}
+              fontSize={20}
               shadowSize={6}
-              bg="#E63946"
-              color="#0B1F3F"
-              hoverBg="#ffffff"
-              hoverColor="#E63946"
+              bg="#ffffff"
+              color="#E63946"
+              hoverBg="#E63946"
+              hoverColor="#ffffff"
             />
           </Link>
         </li>
@@ -234,7 +234,7 @@ export default function Navbar() {
         {/* Main Navigation - Perfectly centered */}
         <nav
           ref={navRef}
-          className="relative flex justify-between lg:justify-center lg:flex-col items-center pt-20 lg:pt-24 pb-6 lg:pb-8 px-6 sm:px-8 lg:px-12 mx-auto max-w-7xl w-full"
+          className="relative flex justify-between lg:justify-center lg:flex-col items-center pt-10 pb-6 lg:pb-8 px-6 sm:px-8 lg:px-12 mx-auto max-w-7xl w-full"
           role="banner"
           aria-label="Main navigation"
         >
@@ -242,7 +242,7 @@ export default function Navbar() {
           <Link href="/" className="mb-6 lg:mb-8" aria-label="AMDevs Homepage">
             <div
               ref={logoRef}
-              className="relative h-20 w-36 sm:h-24 sm:w-44 md:h-28 md:w-52 lg:h-32 lg:w-60 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-300 hover:scale-[1.05]"
+              className="relative h-20 w-36 sm:h-24 sm:w-44 md:h-28 md:w-52 lg:h-32 lg:w-60 border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 rounded-none origin-bottom-right bg-white/80 backdrop-blur-xl overflow-hidden group"
               style={{ perspective: "1000px" }}
             >
               <Image
@@ -251,8 +251,11 @@ export default function Navbar() {
                 fill
                 priority
                 sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 208px"
-                className="object-contain p-4 md:p-6 hover:[transform:rotateY(5deg)_rotateX(2deg)] transition-all duration-500"
+                className="object-contain p-4 md:p-6"
               />
+
+              {/* Themed accent corner */}
+              <div className="absolute -top-2 -right-2 md:w-12 w-8 h-8 md:h-12 bg-gradient-to-br from-[#E63946]/30 to-[#FACC15]/30 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] rounded-none group-hover:scale-110 transition-all duration-200" />
             </div>
           </Link>
 
@@ -277,14 +280,14 @@ export default function Navbar() {
               <div ref={(el) => (navItemsRef.current[4] = el)}>
                 <Link href="/contact">
                   <Button
-                    text="Contact"
+                    text="Contact ➔"
                     height={50}
                     fontSize={25}
                     shadowSize={10}
-                    bg="#E63946"
-                    color="#FFFFFF"
-                    hoverBg="#ffffff"
-                    hoverColor="#E63946"
+                    bg="#ffffff"
+                    color="#E63946"
+                    hoverBg="#E63946"
+                    hoverColor="#ffffff"
                   />
                 </Link>
               </div>
@@ -361,10 +364,10 @@ export default function Navbar() {
                     fontSize={35}
                     shadowSize={20}
                     fullWidth
-                    bg={item.isSpecial ? "#E63946" : "white"}
-                    color={item.isSpecial ? "#0B1F3F" : "#0B1F3F"}
-                    hoverBg={item.isSpecial ? "white" : "#E63946"}
-                    hoverColor={item.isSpecial ? "#E63946" : "white"}
+                    bg={item.isSpecial ? "#ffffff" : "white"}
+                    color={item.isSpecial ? "#E63946" : "#0B1F3F"}
+                    hoverBg={item.isSpecial ? "#E63946" : "#E63946"}
+                    hoverColor={item.isSpecial ? "#ffffff" : "white"}
                   />
                 </Link>
               ))}
