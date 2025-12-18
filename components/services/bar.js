@@ -1,6 +1,6 @@
 "use client";
 
-const Bar = ({ desktopText, mobileText, id }) => {
+const Bar = ({ desktopText, mobileText, id, arrow = true }) => {
   return (
     <div id={id} className="w-full">
       <div
@@ -25,20 +25,22 @@ const Bar = ({ desktopText, mobileText, id }) => {
         <p className="hidden md:block">{desktopText}</p>
 
         {/* arrow container – unchanged */}
-        <div className="rotate-3">
-          <div className="ml-8 flex-1 flex items-start justify-start">
-            <div className="relative inline-flex items-center">
-              {/* line */}
-              <span className="block h-[7px] sm:h-[10px] w-20 sm:w-64 rounded-l-full bg-white" />
-              {/* arrow head (slightly tilted) */}
-              <span
-                className="block w-0 h-0 md:border-t-[18px] md:border-b-[18px] md:border-l-[28px] border-t-[12px] border-b-[12px] border-l-[22px]
-                  border-t-transparent border-b-transparent border-l-white
-                "
-              />
+        {arrow && (
+          <div className="rotate-3">
+            <div className="ml-8 flex-1 flex items-start justify-start">
+              <div className="relative inline-flex items-center">
+                {/* line */}
+                <span className="block h-[7px] sm:h-[10px] w-20 sm:w-64 rounded-l-full bg-white" />
+                {/* arrow head (slightly tilted) */}
+                <span
+                  className="block w-0 h-0 md:border-t-[18px] md:border-b-[18px] md:border-l-[28px] border-t-[12px] border-b-[12px] border-l-[22px]
+                    border-t-transparent border-b-transparent border-l-white
+                  "
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

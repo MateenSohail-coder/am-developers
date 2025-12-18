@@ -8,6 +8,7 @@ import Bar from "@/components/services/bar";
 import Footer from "@/components/services/Footer";
 import Button from "@/components/services/Button";
 import Backbar from "@/components/services/Back";
+import SquareLoader from "@/components/services/Loader";
 
 gsap.registerPlugin(useGSAP);
 
@@ -443,6 +444,7 @@ export default function Contact() {
       `}</style>
 
       <Footer />
+      <SquareLoader />
     </>
   );
 }

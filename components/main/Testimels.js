@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Bar from "../services/bar";
-import { ArrowRightCircle, ArrowLeftCircle } from "lucide-react";
+import { ArrowRightCircle, ArrowLeftCircle, Pause, Play } from "lucide-react";
 
 const testimonials = [
   {
@@ -79,16 +79,60 @@ export default function Testimonials() {
     []
   );
 
+  // Ensure current is always valid
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (current >= testimonials.length) {
+      setCurrent(0);
+    }
+  }, [current, testimonials.length]);
+
+  // Autoplay effect
+  useEffect(() => {
+    if (!isAutoPlaying || testimonials.length === 0) return;
     const id = setInterval(next, 3000);
     return () => clearInterval(id);
-  }, [next, isAutoPlaying]);
+  }, [next, isAutoPlaying, testimonials.length]);
 
-  const activeTestimonial = testimonials[current];
+  // Safe active testimonial with fallback
+  const activeTestimonial =
+    testimonials.length > 0
+      ? testimonials[current % testimonials.length]
+      : null;
 
-  const pauseAutoPlay = () => setIsAutoPlaying(false);
-  const resumeAutoPlay = () => setTimeout(() => setIsAutoPlaying(true), 10000);
+  if (!activeTestimonial) {
+    return (
+      <>
+        <Bar
+          desktopText="What Our Clients Say"
+          mobileText="Testimonials"
+          id="clients"
+        />
+        <div className="bg-white py-16 text-center">
+          <p>No testimonials available</p>
+        </div>
+      </>
+    );
+  }
+
+  // Click-based pause with auto resume (3s)
+  const handleTogglePlay = () => {
+    setIsAutoPlaying((prev) => {
+      const nextState = !prev;
+      if (prev && !nextState) {
+        // was playing → now paused, auto resume after 3s
+        setTimeout(() => {
+          setIsAutoPlaying(true);
+        }, 3000);
+      }
+      return nextState;
+    });
+  };
+
+  // User interaction handler - pause then auto resume
+  const handleUserInteraction = () => {
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 3000);
+  };
 
   return (
     <>
@@ -99,18 +143,19 @@ export default function Testimonials() {
       />
 
       <section
-        className="bg-white py-20 md:py-28 relative overflow-hidden"
+        className="bg-white py-14 md:py-18 lg:py-20 relative overflow-hidden"
         aria-labelledby="testimonials-title"
       >
-        {/* Animated background elements */}
+        {/* BG elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#E63946]/5 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-[#FACC15]/10 to-[#E63946]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="mx-auto max-w-6xl px-6 lg:px-12">
-          <div className="text-center mb-16 md:mb-20">
-            <div className="flex mb-6 items-center justify-center gap-4">
+          {/* Header */}
+          <div className="text-center mb-12 md:mb-14">
+            <div className="flex mb-4 items-center justify-center gap-4">
               <div className="w-12 h-12 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] flex items-center justify-center rounded-none transition-all duration-500 hover:shadow-[8px_8px_0_#E63946] hover:scale-110">
                 <svg
                   className="w-6 h-6 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
@@ -132,58 +177,50 @@ export default function Testimonials() {
             </div>
             <h2
               id="testimonials-title"
-              className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#0B1F3F] via-[#E63946] to-[#FACC15] bg-clip-text text-transparent mb-6"
+              className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#0B1F3F] via-[#E63946] to-[#FACC15] bg-clip-text text-transparent mb-4"
             >
               Client Success Stories
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Don't just take our word for it. Hear from our satisfied clients
-              about their experience working with us.
+            <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Hear from our clients about their experience working with us.
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-12 lg:gap-20">
-            {/* Avatar Carousel Wrapper - fixed height to avoid layout shift */}
+          <div className="flex flex-col items-center gap-10 lg:gap-14">
+            {/* Avatars */}
             <div
-              className="relative mb-12 h-[160px] md:h-[220px] flex items-end justify-center"
+              className="relative mb-6 h-[140px] md:h-[190px] flex items-end justify-center"
               role="tablist"
               aria-label="Testimonial navigation"
             >
-              {/* Mobile: single avatar, centered at bottom */}
+              {/* Mobile */}
               <div className="md:hidden flex justify-center absolute bottom-0">
-                {testimonials.slice(current, current + 1).map((testimonial) => (
-                  <button
-                    key={testimonial.id}
-                    onClick={() => {
-                      setCurrent(0);
-                      pauseAutoPlay();
-                    }}
-                    onMouseEnter={pauseAutoPlay}
-                    onMouseLeave={resumeAutoPlay}
-                    className={[
-                      "relative group cursor-pointer transition-all duration-300 ease-out",
-                      "h-28 w-28 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] bg-white/80 backdrop-blur-xl",
-                      "hover:shadow-[8px_8px_0_#E63946] hover:-translate-x-[2px] hover:-translate-y-[2px] active:shadow-[4px_4px_0_#E63946]",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                    aria-selected={true}
-                    aria-controls="testimonial-content"
-                  >
-                    <Image
-                      src={testimonial.image}
-                      alt={`${testimonial.name}, ${testimonial.role}`}
-                      fill
-                      className="object-cover rounded-full drop-shadow-[2px_2px_0_#0B1F3F]"
-                      sizes="120px"
-                      priority={true}
-                    />
-                  </button>
-                ))}
+                <button
+                  onClick={() => {
+                    setCurrent(0);
+                    handleUserInteraction();
+                  }}
+                  className={[
+                    "relative group cursor-pointer transition-all duration-300 ease-out",
+                    "h-24 w-24 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] bg-white/80 backdrop-blur-xl",
+                    "hover:shadow-[8px_8px_0_#E63946] hover:-translate-x-[2px] hover:-translate-y-[2px] active:shadow-[4px_4px_0_#E63946]",
+                  ].join(" ")}
+                  aria-selected={true}
+                  aria-controls="testimonial-content"
+                >
+                  <Image
+                    src={activeTestimonial.image}
+                    alt={`${activeTestimonial.name}, ${activeTestimonial.role}`}
+                    fill
+                    className="object-cover rounded-full drop-shadow-[2px_2px_0_#0B1F3F]"
+                    sizes="96px"
+                    priority={true}
+                  />
+                </button>
               </div>
 
-              {/* Desktop: all avatars, fixed size + transforms only */}
-              <div className="hidden md:flex items-end justify-center gap-4 lg:gap-8 absolute bottom-0">
+              {/* Desktop */}
+              <div className="hidden md:flex items-end justify-center gap-4 lg:gap-6 absolute bottom-0">
                 {testimonials.map((testimonial, index) => {
                   const isActive = index === current;
                   const isNext = index === (current + 1) % testimonials.length;
@@ -196,18 +233,16 @@ export default function Testimonials() {
                       key={testimonial.id}
                       onClick={() => {
                         setCurrent(index);
-                        pauseAutoPlay();
+                        handleUserInteraction();
                       }}
-                      onMouseEnter={pauseAutoPlay}
-                      onMouseLeave={resumeAutoPlay}
                       className={[
-                        "relative group cursor-pointer transition-all duration-500 ease-out hover:z-10 origin-bottom",
-                        "h-32 w-32 lg:h-36 lg:w-36 bg-white/80 backdrop-blur-xl rounded-none",
+                        "relative group cursor-pointer transition-all duration-400 ease-out hover:z-10 origin-bottom",
+                        "h-28 w-28 lg:h-32 lg:w-32 bg-white/80 backdrop-blur-xl rounded-none",
                         isActive
                           ? "border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] scale-110 -translate-y-2 z-20 hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px]"
                           : isNext || isPrevious
-                          ? "border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] scale-105 -translate-y-1 hover:shadow-[8px_8px_0_#E63946]"
-                          : "border-4 border-[#E63946]/50 shadow-[4px_4px_0_#E63946]/50 opacity-70 hover:opacity-90 hover:shadow-[6px_6px_0_#E63946] hover:scale-105",
+                          ? "border-4 border-[#E63946]/60 shadow-[6px_6px_0_#E63946]/60 scale-105 -translate-y-1"
+                          : "border-4 border-[#E63946]/40 opacity-70",
                       ]
                         .filter(Boolean)
                         .join(" ")}
@@ -220,12 +255,11 @@ export default function Testimonials() {
                         alt={`${testimonial.name}, ${testimonial.role}`}
                         fill
                         className="object-cover rounded-none drop-shadow-[2px_2px_0_#0B1F3F]"
-                        sizes="(max-width: 1024px) 100px, 120px"
+                        sizes="120px"
                         priority={isActive}
                       />
 
-                      {/* Name tooltip - themed */}
-                      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0B1F3F] to-[#E63946] text-white text-xs px-3 py-2 font-black tracking-wide shadow-[4px_4px_0_#E63946] rounded-none opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 pointer-events-none z-30 whitespace-nowrap">
+                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0B1F3F] to-[#E63946] text-white text-xs px-3 py-1.5 font-black tracking-wide shadow-[4px_4px_0_#E63946] rounded-none opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 pointer-events-none whitespace-nowrap">
                         {testimonial.name}
                       </div>
                     </button>
@@ -240,110 +274,114 @@ export default function Testimonials() {
               className="group relative w-full max-w-4xl mx-auto"
               aria-label={`Testimonial by ${activeTestimonial.name}`}
             >
-              <div className="relative z-10 bg-white/80 backdrop-blur-xl p-8 lg:p-12 border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 rounded-none origin-bottom-right">
+              <div className="relative z-10 bg-white/80 backdrop-blur-xl p-6 lg:p-8 border-4 border-[#E63946] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 rounded-none origin-bottom-right">
                 <Stars count={activeTestimonial.rating} />
 
-                <blockquote className="mt-8">
-                  <p className="text-lg md:text-xl lg:text-2xl text-[#0B1F3F] leading-relaxed mb-8 font-black tracking-tight drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]">
+                <blockquote className="mt-6">
+                  <p className="text-base md:text-lg lg:text-xl text-[#0B1F3F] leading-relaxed mb-6 font-black tracking-tight drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]">
                     "{activeTestimonial.text}"
                   </p>
                 </blockquote>
 
-                <div className="flex items-start gap-6 pt-8 border-t-2 border-[#E63946]/30">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] rounded-none flex items-center justify-center flex-shrink-0 group-hover:shadow-[8px_8px_0_#E63946] group-hover:scale-105 transition-all duration-200">
+                <div className="flex items-start gap-4 pt-6 border-t-2 border-[#E63946]/30">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] rounded-none flex items-center justify-center flex-shrink-0 group-hover:shadow-[8px_8px_0_#E63946] group-hover:scale-105 transition-all duration-200">
                     <Image
                       src={activeTestimonial.image}
                       alt={activeTestimonial.name}
-                      width={80}
-                      height={80}
-                      className="w-12 h-12 md:w-16 md:h-16 object-cover drop-shadow-[2px_2px_0_#0B1F3F]"
+                      width={64}
+                      height={64}
+                      className="w-10 h-10 md:w-12 md:h-12 object-cover drop-shadow-[2px_2px_0_#0B1F3F]"
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-[#0B1F3F] group-hover:text-[#E63946] transition-all duration-200 drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]">
+                    <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-[#0B1F3F] group-hover:text-[#E63946] transition-all duration-200 drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]">
                       {activeTestimonial.name}
                     </h3>
-                    <p className="text-xl font-black text-slate-700 mt-2 tracking-tight">
+                    <p className="text-sm md:text-base font-black text-slate-700 mt-1 tracking-tight">
                       {activeTestimonial.role}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Floating accent - enhanced theme style */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 border-4 border-[#E63946]/30 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 shadow-[6px_6px_0_#E63946]/50 rounded-none rotate-12 group-hover:rotate-[-8deg] transition-all duration-300 animate-pulse origin-bottom-right"></div>
+              <div className="absolute -top-4 -right-4 w-16 h-16 border-4 border-[#E63946]/30 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 shadow-[6px_6px_0_#E63946]/50 rounded-none rotate-12 group-hover:rotate-[-8deg] transition-all duration-300 animate-pulse origin-bottom-right"></div>
             </article>
 
-            {/* Dots */}
-            <nav
-              className="flex gap-3"
-              aria-label="Testimonial dots navigation"
-            >
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrent(index);
-                    pauseAutoPlay();
-                  }}
-                  className={[
-                    "h-3 w-3 md:h-4 md:w-4 rounded-full transition-all duration-300 cursor-pointer",
-                    index === current
-                      ? "bg-gradient-to-r from-[#E63946] to-[#FACC15] scale-125 shadow-lg shadow-[#E63946]/25"
-                      : "bg-slate-300 hover:bg-slate-400 hover:scale-110",
-                  ].join(" ")}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                  aria-current={index === current ? "true" : "false"}
-                />
-              ))}
-            </nav>
+            {/* Controls */}
+            <div className="flex flex-col items-center gap-4">
+              {/* Dots */}
+              <nav
+                className="flex gap-3"
+                aria-label="Testimonial dots navigation"
+              >
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setCurrent(index);
+                      handleUserInteraction();
+                    }}
+                    className={[
+                      "h-3 w-3 md:h-4 md:w-4 rounded-full transition-all duration-300 cursor-pointer",
+                      index === current
+                        ? "bg-gradient-to-r from-[#E63946] to-[#FACC15] scale-125 shadow-lg shadow-[#E63946]/25"
+                        : "bg-slate-300 hover:bg-slate-400 hover:scale-110",
+                    ].join(" ")}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                    aria-current={index === current ? "true" : "false"}
+                  />
+                ))}
+              </nav>
+              {/* Play/Pause toggle - positioned at top as requested */}
+              <button
+                onClick={handleTogglePlay}
+                className={`flex items-center gap-2 px-4 py-3 border-4 rounded-none text-xs md:text-sm font-black tracking-wide transition-all duration-200 shadow-[6px_6px_0_var(--shadow-color)] hover:shadow-[8px_8px_0_var(--shadow-color)] hover:-translate-x-[2px] hover:-translate-y-[2px] active:shadow-[4px_4px_0_var(--shadow-color)] active:translate-x-0 active:translate-y-0 origin-bottom-right ${
+                  isAutoPlaying
+                    ? "border-[#16a34a] text-[#0B1F3F] bg-white/80 [--shadow-color:#16a34a]"
+                    : "border-[#eab308] text-[#0B1F3F] bg-white/80 [--shadow-color:#eab308]"
+                }`}
+              >
+                {isAutoPlaying ? (
+                  <>
+                    <Pause className="w-4 h-4" />
+                    Pause Auto
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4" />
+                    Resume Auto
+                  </>
+                )}
+              </button>
+              {/* Navigation + Play/Pause */}
+              <div className="flex flex-col md:flex-row items-center gap-4 w-full max-w-2xl">
+                {/* Prev/Next buttons */}
+                <div className="flex-1">
+                  <div className="grid grid-cols-2 gap-0 rounded-none border-t-4 border-[#E63946]/50 overflow-visible">
+                    <button
+                      onClick={() => {
+                        prev();
+                        handleUserInteraction();
+                      }}
+                      className="group relative bg-white/80 backdrop-blur-xl py-5 px-6 flex items-center justify-center gap-4 text-base md:text-lg font-black text-[#0B1F3F] border-r-4 border-[#E63946]/30 shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 origin-bottom-right"
+                    >
+                      <ArrowLeftCircle className="w-7 h-7 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F] group-hover:text-[#FACC15]" />
+                      Previous
+                    </button>
 
-            {/* Navigation buttons */}
-            <div className="w-full max-w-2xl">
-              <div className="grid grid-cols-2 gap-0 rounded-none border-t-4 border-[#E63946]/50 overflow-visible">
-                <button
-                  onClick={prev}
-                  onMouseEnter={pauseAutoPlay}
-                  onMouseLeave={resumeAutoPlay}
-                  className="group relative bg-white/80 backdrop-blur-xl py-8 px-10 flex items-center justify-center gap-6 text-lg md:text-xl font-black text-[#0B1F3F] border-r-4 border-[#E63946]/30 shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 origin-bottom-right"
-                >
-                  <span className="relative z-10 flex items-center gap-4">
-                    <ArrowLeftCircle className="w-8 h-8 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F] group-hover:text-[#FACC15]" />
-                    Previous
-                  </span>
-                </button>
-
-                <button
-                  onClick={next}
-                  onMouseEnter={pauseAutoPlay}
-                  onMouseLeave={resumeAutoPlay}
-                  className="group relative bg-white/80 backdrop-blur-xl py-8 px-10 flex items-center justify-center gap-6 text-lg md:text-xl font-black text-[#0B1F3F] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 origin-bottom-right border-l-4 border-[#E63946]/30"
-                >
-                  <span className="relative z-10 flex items-center gap-4">
-                    Next
-                    <ArrowRightCircle className="w-8 h-8 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F] group-hover:text-[#FACC15]" />
-                  </span>
-                </button>
+                    <button
+                      onClick={() => {
+                        next();
+                        handleUserInteraction();
+                      }}
+                      className="group relative bg-white/80 backdrop-blur-xl py-5 px-6 flex items-center justify-center gap-4 text-base md:text-lg font-black text-[#0B1F3F] shadow-[8px_8px_0_#E63946] hover:shadow-[12px_12px_0_#E63946] hover:-translate-x-[4px] hover:-translate-y-[4px] active:shadow-[4px_4px_0_#E63946] active:translate-x-0 active:translate-y-0 transition-all duration-200 origin-bottom-right border-l-4 border-[#E63946]/30"
+                    >
+                      Next
+                      <ArrowRightCircle className="w-7 h-7 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F] group-hover:text-[#FACC15]" />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* Auto-play indicator */}
-            <div
-              className={`flex items-center gap-2 border p-4 rounded-2xl text-sm text-slate-500 ${
-                isAutoPlaying ? "border-green-400" : "border-yellow-400"
-              }`}
-            >
-              {isAutoPlaying ? (
-                <>
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-                  <span>Auto-playing</span>
-                </>
-              ) : (
-                <>
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                  <span>Paused</span>
-                </>
-              )}
             </div>
           </div>
         </div>

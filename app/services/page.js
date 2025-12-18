@@ -7,10 +7,11 @@ import Backbar from "@/components/services/Back";
 import Bar from "@/components/services/bar";
 import Button from "@/components/services/Button";
 import Footer from "@/components/services/Footer";
+import SquareLoader from "@/components/services/Loader";
 
 const services = [
   {
-    id: "web-dev",
+    id: "webdevelopment",
     title: "Web Application Development",
     description:
       "Custom, scalable web applications using React, Next.js, Node.js & MongoDB. Built for performance and long-term growth.",
@@ -42,7 +43,7 @@ const services = [
     cta: "Design Portfolio",
   },
   {
-    id: "mobile",
+    id: "mobileapp",
     title: "Mobile App Development",
     description:
       "React Native apps with native performance. Cross-platform solutions for iOS & Android.",
@@ -106,8 +107,8 @@ const services = [
     cta: "Get Support",
   },
   {
-    id: "Sotware Development",
-    title: "Sotware Development",
+    id: "softwaredevelopment",
+    title: "Software Development",
     description:
       "Custom software development using React, Next.js, Node.js & MongoDB. Built for performance and long-term growth.",
     image: "/software2.avif",
@@ -121,7 +122,7 @@ const services = [
     cta: "Start Project",
   },
   {
-    id: "Digital Marketing",
+    id: "digitalmarketing",
     title: "Digital Marketing",
     description:
       "Digital marketing services including SEO, PPC, social media marketing, and content marketing.",
@@ -226,6 +227,7 @@ export default function AllServices() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             {services.map((service, index) => (
               <article
+                id={service.id}
                 key={service.id}
                 ref={(el) => (cardsRef.current[index] = el)}
                 className="
@@ -380,6 +382,7 @@ export default function AllServices() {
         </div>
       </section>
       <Footer />
+      <SquareLoader />
     </>
   );
 }

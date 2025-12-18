@@ -6,6 +6,7 @@ import Link from "next/link";
 import Footer from "@/components/services/Footer";
 import Bar from "@/components/services/bar";
 import Backbar from "@/components/services/Back";
+import SquareLoader from "@/components/services/Loader";
 
 const FAQS = [
   {
@@ -134,34 +135,45 @@ export default function FAQPage() {
               ))}
             </div>
 
-            {/* CTA Section */}
-            <div className="mt-24 lg:mt-32 text-center">
-              <div className="bg-gradient-to-br from-[#0B1F3F] via-[#1E3A8A] to-[#E63946] rounded-3xl p-12 lg:p-20 shadow-3xl border-4 border-white/20 backdrop-blur-md">
-                <div className="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                  <div className="w-12 h-12 bg-gradient-to-r from-[#FACC15] to-[#E63946] rounded-2xl shadow-lg flex items-center justify-center">
-                    <Phone className="h-7 w-7 text-[#0B1F3F]" />
+            {/* CTA Section - Responsive */}
+            <div className="mt-12 sm:mt-16 md:mt-20 lg:mt-24 xl:mt-32 text-center">
+              <div className="bg-gradient-to-br from-[#0B1F3F] via-[#1E3A8A] to-[#E63946] rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20 shadow-3xl border-4 border-white/20 backdrop-blur-md mx-4 sm:mx-6 md:mx-8">
+                {/* Icon */}
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white/20 rounded-3xl flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-2xl">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-r from-[#FACC15] to-[#E63946] rounded-2xl shadow-lg flex items-center justify-center">
+                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-[#0B1F3F]" />
                   </div>
                 </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
+
+                {/* Headline */}
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-4 sm:mb-6 md:mb-8 leading-tight tracking-tight">
                   Still Have Questions?
                 </h2>
-                <p className="text-2xl md:text-3xl text-white/95 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+
+                {/* Subtitle */}
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-light px-2 sm:px-4">
                   Let's discuss your project. Free 30-minute consultation
                   included.
                 </p>
-                <div className="flex flex-col lg:flex-row gap-6 justify-center items-center">
+
+                {/* Buttons - Stack on mobile, row on larger screens */}
+                <div className="flex flex-col xs:flex-row gap-4 sm:gap-6 justify-center items-stretch sm:items-center px-2 sm:px-4">
+                  {/* Primary WhatsApp Button */}
                   <Link
-                    href="https://wa.me/923700959829"
-                    className="group bg-white text-[#0B1F3F] hover:bg-[#E63946] hover:text-white px-12 py-7 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 flex items-center gap-4 w-full lg:w-auto justify-center border-4 border-white/30 hover:border-[#E63946]/50"
+                    href="https://wa.me/923700959829/?text=Hello%20I%20want%20to%20discuss%20my%20project"
+                    target="_blank"
+                    className="group bg-white text-[#0B1F3F] hover:bg-[#E63946] hover:text-white px-6 sm:px-8 md:px-10 lg:px-12 py-5 sm:py-6 md:py-7 rounded-3xl font-bold text-base sm:text-lg md:text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 flex items-center gap-3 justify-center border-4 border-white/30 hover:border-[#E63946]/50 min-h-[52px] sm:min-h-[60px]"
                   >
-                    <Phone className="h-6 w-6 group-hover:rotate-12 transition-transform duration-500" />
-                    WhatsApp Now
+                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-12 transition-transform duration-500 flex-shrink-0" />
+                    <span className="whitespace-nowrap">WhatsApp Now</span>
                   </Link>
+
+                  {/* Secondary Contact Button */}
                   <Link
-                    href="mailto:amdevs@gmail.com"
-                    className="group border-4 border-white hover:bg-white text-white hover:text-[#0B1F3F] px-12 py-7 rounded-3xl font-bold text-xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 w-full lg:w-auto bg-white/10 backdrop-blur-sm hover:backdrop-blur-none"
+                    href="/contact"
+                    className="group border-4 border-white hover:bg-white text-white hover:text-[#0B1F3F] px-6 sm:px-8 md:px-10 lg:px-12 py-5 sm:py-6 md:py-7 rounded-3xl font-bold text-base sm:text-lg md:text-xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 min-h-[52px] sm:min-h-[60px] bg-white/10 backdrop-blur-sm hover:backdrop-blur-none flex items-center justify-center"
                   >
-                    Send Email
+                    <span className="whitespace-nowrap">Send Proposal</span>
                   </Link>
                 </div>
               </div>
@@ -170,6 +182,7 @@ export default function FAQPage() {
         </div>
         <Footer />
       </section>
+      <SquareLoader />
     </>
   );
 }
