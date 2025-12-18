@@ -232,7 +232,7 @@ export default function Contact() {
                 <p className="text-sm font-black uppercase tracking-[0.1em] text-slate-600 mb-3 border-b-2 border-[#E63946]/30 pb-1">
                   Address
                 </p>
-                
+
                 <p
                   className="text-xl font-black text-slate-700 mt-2 tracking-tight"
                   itemProp="addressLocality"
