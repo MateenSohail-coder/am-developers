@@ -367,7 +367,7 @@ export default function AllServices() {
             <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-xl">
               Get a free consultation and project roadmap within 24 hours.
             </p>
-            <Link href="/contact">
+            <Link href="/Contact">
               <Button
                 text="Get Free Quote →"
                 fontSize={20}

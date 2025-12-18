@@ -93,7 +93,7 @@ export default function Offer() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center pt-8 w-full px-6 sm:px-0">
-              <Link href="/contact">
+              <Link href="/Contact">
                 <button className="group relative px-10 py-5 bg-gradient-to-r from-[#E63946] to-[#d6303d] text-white font-bold text-lg sm:text-xl rounded-0 shadow-2xl border-2 border-white/20 backdrop-blur-sm overflow-hidden min-w-[240px] transition-all duration-300 hover:scale-105 active:scale-95">
                   <span className="relative z-10">Get Free Proposal</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/30 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />

@@ -17,7 +17,7 @@ export default function CTA() {
           </p>
         </div>
         {/* CTA Button */}
-        <Link href="/contact">
+        <Link href="/Contact">
           <Button text="Contact Us Now" />
         </Link>
       </div>

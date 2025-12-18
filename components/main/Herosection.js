@@ -272,7 +272,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-8 pt-2">
-              <Link href="/contact">
+              <Link href="/Contact">
                 <Button text="Start Project ➔" fontSize={20} shadowSize={10} />
               </Link>
               <Link href="#services">

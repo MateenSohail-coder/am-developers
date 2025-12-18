@@ -170,7 +170,7 @@ export default function FAQPage() {
 
                   {/* Secondary Contact Button */}
                   <Link
-                    href="/contact"
+                    href="/Contact"
                     className="group border-4 border-white hover:bg-white text-white hover:text-[#0B1F3F] px-6 sm:px-8 md:px-10 lg:px-12 py-5 sm:py-6 md:py-7 rounded-3xl font-bold text-base sm:text-lg md:text-xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 min-h-[52px] sm:min-h-[60px] bg-white/10 backdrop-blur-sm hover:backdrop-blur-none flex items-center justify-center"
                   >
                     <span className="whitespace-nowrap">Send Proposal</span>

@@ -191,7 +191,7 @@ export default function About() {
 
               {/* CTA */}
               <div className="pt-2 flex flex-col items-center md:items-start gap-2">
-                <Link href="/contact">
+                <Link href="/Contact">
                   <Button text="Book a Free Consultation" />
                 </Link>
                 <p className="text-xs md:text-sm text-slate-500">

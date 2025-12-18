@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   { href: "#services", label: "Services", key: "services" },
   { href: "#clients", label: "Clients", key: "clients" },
   { href: "/faqs", label: "FAQS", key: "work" },
-  { href: "/contact", label: "Contact ➔", key: "contact", isSpecial: true },
+  { href: "/Contact", label: "Contact ➔", key: "contact", isSpecial: true },
 ];
 
 // Optimized BottomMenu with perfect spacing
