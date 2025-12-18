@@ -27,11 +27,25 @@ export default function Offer() {
           {/* Main Content */}
           <div className="relative z-10 flex flex-col items-center text-center text-white space-y-8 lg:space-y-10">
             {/* Badge */}
-            <div className="inline-flex items-center px-5 py-2.5 bg-white/20 backdrop-blur-xl rounded-full border border-white/30">
-              <span className="text-xs lg:text-sm font-medium tracking-wider uppercase mr-2">
+            <div className="flex mb-6 items-center justify-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[yellow] shadow-[6px_6px_0_#E63946] flex items-center justify-center rounded-none transition-all duration-500 hover:shadow-[8px_8px_0_#E63946] hover:scale-110">
+                <svg
+                  className="w-6 h-6 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <span className="text-lg font-black uppercase tracking-[0.2em] text-[yellow] drop-shadow-[2px_2px_0_#0B1F3F]">
                 Limited Time
               </span>
-              <div className="w-1.5 h-1.5 bg-[#FACC15] rounded-full animate-pulse" />
             </div>
 
             {/* Main Heading */}

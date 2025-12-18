@@ -71,8 +71,8 @@ const BottomMenu = memo(({ isVisible, onClose }) => (
               shadowSize={6}
               bg="#ffffff"
               color="#E63946"
-              hoverBg="#E63946"
-              hoverColor="#ffffff"
+              hoverBg="#0B1F3F"
+              hoverColor="#E63946"
             />
           </Link>
         </li>
@@ -261,7 +261,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation - Perfect alignment */}
           <div className="hidden lg:flex items-center gap-2 mb-4 lg:mb-6">
-            <div className="flex items-center gap-5 px-8 py-5 rounded-3xl bg-gradient-to-r from-[#0B1F3F] to-[#1E3A5F] shadow-2xl border-2 border-white/20 backdrop-blur-sm">
+            <div className="flex items-center gap-5 px-8 py-5 rounded-0 bg-gradient-to-r from-[#0B1F3F] to-[#1E3A5F] shadow-2xl border-2 border-white/20 backdrop-blur-sm">
               {NAV_ITEMS.slice(0, -1).map((item, index) => (
                 <div
                   key={item.key}
@@ -286,8 +286,8 @@ export default function Navbar() {
                     shadowSize={10}
                     bg="#ffffff"
                     color="#E63946"
-                    hoverBg="#E63946"
-                    hoverColor="#ffffff"
+                    hoverBg="#0B1F3F"
+                    hoverColor="#E63946"
                   />
                 </Link>
               </div>
@@ -366,8 +366,8 @@ export default function Navbar() {
                     fullWidth
                     bg={item.isSpecial ? "#ffffff" : "white"}
                     color={item.isSpecial ? "#E63946" : "#0B1F3F"}
-                    hoverBg={item.isSpecial ? "#E63946" : "#E63946"}
-                    hoverColor={item.isSpecial ? "#ffffff" : "white"}
+                    hoverBg={item.isSpecial ? "#0B1F3F" : "#E63946"}
+                    hoverColor={item.isSpecial ? "#E63946" : "white"}
                   />
                 </Link>
               ))}

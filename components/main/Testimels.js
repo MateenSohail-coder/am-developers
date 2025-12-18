@@ -110,12 +110,24 @@ export default function Testimonials() {
 
         <div className="mx-auto max-w-6xl px-6 lg:px-12">
           <div className="text-center mb-16 md:mb-20">
-            <div className="flex mb-3 items-center justify-center gap-3">
-              <span className="inline-flex items-center rounded-full border border-[#E63946]/30 bg-[#E63946]/5 px-3 py-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#E63946] mr-2" />
-                <span className="text-[0.7rem] md:text-xs tracking-[0.25em] uppercase text-[#E63946]">
-                  Clients
-                </span>
+            <div className="flex mb-6 items-center justify-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#E63946]/20 to-[#FACC15]/20 border-4 border-[#E63946] shadow-[6px_6px_0_#E63946] flex items-center justify-center rounded-none transition-all duration-500 hover:shadow-[8px_8px_0_#E63946] hover:scale-110">
+                <svg
+                  className="w-6 h-6 text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <span className="text-lg font-black uppercase tracking-[0.2em] text-[#E63946] drop-shadow-[2px_2px_0_#0B1F3F]">
+                Clients
               </span>
             </div>
             <h2

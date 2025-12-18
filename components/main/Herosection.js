@@ -168,18 +168,51 @@ const HeroSection = () => {
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 order-2 lg:order-1">
             <h1
               ref={titleRef}
-              className="text-5xl sm:text-6xl lg:text-8xl font-extrabold tracking-tight text-[#0B1F3F]"
+              className="text-5xl sm:text-6xl lg:text-8xl font-black tracking-tight text-[#0B1F3F] space-y-4"
             >
-              <div className="flex items-center justify-center md:justify-start gap-3">
-                <span className="inline-flex items-center rounded-full border border-[#E63946]/30 bg-[#E63946]/5 px-3 py-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#E63946] mr-2" />
-                  <span className="text-[0.7rem] md:text-xs tracking-[0.25em] uppercase text-[#E63946]">
+              {/* Badge row */}
+              <div className="flex items-center justify-center md:justify-start">
+                <span
+                  className="
+      inline-flex items-center 
+      border-4 border-[#E63946] 
+      bg-white/80 backdrop-blur-xl 
+      px-4 py-2 
+      shadow-[6px_6px_0_#E63946] 
+      rounded-none 
+      origin-bottom-right
+    "
+                >
+                  <span className="h-1.5 w-1.5 bg-[#E63946] mr-2 shadow-[2px_2px_0_rgba(11,31,63,0.3)]" />
+                  <span className="text-[0.7rem] md:text-xs tracking-[0.25em] uppercase text-[#0B1F3F] font-black">
                     Premium Zone
                   </span>
                 </span>
               </div>
-              <span className="block text-[#E63946]">DIGITAL</span>
-              <span className="block">EXCELLENCE</span>
+
+              {/* DIGITAL */}
+              <span
+                className="
+    block mt-4 
+    text-[#E63946] 
+    font-black 
+    drop-shadow-[7px_7px_0_#0b1f3fb5]
+  "
+              >
+                DIGITAL
+              </span>
+
+              {/* EXCELLENCE */}
+              <span
+                className="
+    block 
+    font-black 
+    text-[#0B1F3F] 
+    drop-shadow-[7px_7px_0_#e63947ba]
+  "
+              >
+                EXCELLENCE
+              </span>
             </h1>
 
             <p
@@ -202,18 +235,36 @@ const HeroSection = () => {
               {statsData.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className="text-center border-2 border-[#E63946] bg-[#E63946]/10 text-[#E63946] rounded-xl px-4"
+                  className="
+        text-center 
+        bg-white/80 backdrop-blur-xl 
+        border-4 border-[#E63946] 
+        shadow-[6px_6px_0_#E63946] 
+        rounded-none 
+        px-4 py-3 
+        origin-bottom-right 
+        transition-all duration-200 
+        hover:shadow-[8px_8px_0_#E63946] 
+        hover:-translate-x-[3px] 
+        hover:-translate-y-[3px]
+      "
                 >
                   <div
                     ref={(el) => {
                       if (el) statsRef.current[i] = el;
                     }}
                     data-target={stat.target}
-                    className="text-3xl lg:text-4xl text-[#E63946] font-extrabold font-cursive m-2"
+                    className="
+          text-3xl lg:text-4xl 
+          text-[#0B1F3F] 
+          font-black 
+          m-2 
+          drop-shadow-[2px_2px_0_rgba(11,31,63,0.15)]
+        "
                   >
                     0
                   </div>
-                  <div className="text-xs lg:text-sm text-[#64748B] uppercase tracking-wide">
+                  <div className="text-[0.65rem] lg:text-xs text-[#0B1F3F] font-black uppercase tracking-[0.15em]">
                     {stat.label}
                   </div>
                 </div>
