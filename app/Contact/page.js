@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import emailjs from "@emailjs/browser";
 
 import Bar from "@/components/services/bar";
 import Footer from "@/components/services/Footer";
@@ -17,6 +18,10 @@ export default function Contact() {
   const formRef = useRef(null);
   const addressRef = useRef(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const formFields = [
     {
       id: "name",
@@ -25,6 +30,14 @@ export default function Contact() {
       required: true,
       placeholder: "Enter your full name",
       itemProp: "name",
+    },
+    {
+      id: "email",
+      label: "Enter Your Email",
+      type: "email",
+      required: true,
+      placeholder: "Enter your email address",
+      itemProp: "email",
     },
     {
       id: "subject",
@@ -43,11 +56,21 @@ export default function Contact() {
     },
     {
       id: "service",
-      label: "Enter Service",
-      type: "text",
+      label: "Select Service",
+      type: "select",
       required: true,
-      placeholder: "Enter Needed service",
+      style: { paddingTop: "0.4rem" }, // Fix for half-text
+      options: [
+        { value: "", label: "Choose a service" },
+        { value: "web-development", label: "Web Development" },
+        { value: "mobile-app", label: "Mobile App Development" },
+        { value: "ui-ux-design", label: "UI/UX Design" },
+        { value: "digital-marketing", label: "Digital Marketing" },
+        { value: "consulting", label: "Consulting" },
+        { value: "other", label: "Other" },
+      ],
     },
+
     {
       id: "projectDetails",
       label: "Enter Project Details",
@@ -103,9 +126,28 @@ export default function Contact() {
     { scope: containerRef }
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setIsLoading(true);
+    setErrorMessage("");
+
+    const serviceId =
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "your_service_id";
+    const templateId =
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "your_template_id";
+    const publicKey =
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "your_public_key";
+
+    try {
+      await emailjs.sendForm(serviceId, templateId, "#contact-form", publicKey);
+      setIsSuccess(true);
+      document.getElementById("contact-form").reset();
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setErrorMessage("Failed to send message. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -190,12 +232,7 @@ export default function Contact() {
                 <p className="text-sm font-black uppercase tracking-[0.1em] text-slate-600 mb-3 border-b-2 border-[#E63946]/30 pb-1">
                   Address
                 </p>
-                <p
-                  className="text-2xl md:text-3xl font-black text-[#0B1F3F] leading-tight group-hover:text-[#E63946] transition-all duration-200 drop-shadow-[2px_2px_0_rgba(11,31,63,0.1)]"
-                  itemProp="streetAddress"
-                >
-                  123 Main Street
-                </p>
+                
                 <p
                   className="text-xl font-black text-slate-700 mt-2 tracking-tight"
                   itemProp="addressLocality"
@@ -228,7 +265,7 @@ export default function Contact() {
                 </p>
                 <a
                   href="tel:+923001234567"
-                  className="block text-sm sm:text-xl md:text-2xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
+                  className="block text-sm sm:text-lg md:text-xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
                   itemProp="telephone"
                 >
                   +92 300 1234567
@@ -259,7 +296,7 @@ export default function Contact() {
                 </p>
                 <a
                   href="mailto:contact@example.com"
-                  className="block text-sm sm:text-xl md:text-2xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
+                  className="block text-sm sm:text-lg md:text-xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
                   itemProp="email"
                 >
                   contact@example.com
@@ -275,6 +312,7 @@ export default function Contact() {
         {/* Right Side: Form Section */}
         <div ref={formRef} className="w-full md:w-1/2">
           <form
+            id="contact-form"
             onSubmit={handleSubmit}
             className="space-y-6"
             itemScope
@@ -291,6 +329,21 @@ export default function Contact() {
                     required={field.required}
                     {...(field.itemProp ? { itemProp: field.itemProp } : {})}
                   />
+                ) : field.type === "select" ? (
+                  <select
+                    id={field.id}
+                    name={field.id}
+                    className="input select-input"
+                    required={field.required}
+                    style={field.style} // Add this line
+                    {...(field.itemProp ? { itemProp: field.itemProp } : {})}
+                  >
+                    {field.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   <input
                     id={field.id}
@@ -311,9 +364,21 @@ export default function Contact() {
               </div>
             ))}
 
+            {isSuccess && (
+              <div className="bg-white/90 border-4 border-green-500 text-green-700 font-bold px-4 py-3 text-sm uppercase tracking-wide rounded-none shadow-lg">
+                Message sent successfully!
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="bg-white/90 border-4 border-red-500 text-red-700 font-bold px-4 py-3 text-sm uppercase tracking-wide rounded-none shadow-lg">
+                {errorMessage}
+              </div>
+            )}
+
             <div className="pt-2 submit-btn">
               <Button
-                text="Send Us"
+                text={isLoading ? "Sending..." : "Send Us"}
                 fullWidth={true}
                 fontSize={25}
                 bg="#0B1F3F"
@@ -321,6 +386,7 @@ export default function Contact() {
                 hoverBg="white"
                 hoverColor="#E63946"
                 shadowSize={10}
+                disabled={isLoading}
               />
             </div>
           </form>
@@ -441,7 +507,35 @@ export default function Contact() {
           transform: scale(1);
           transition: all 0.5s;
         }
+        @keyframes squarePulse {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(0.7);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
       `}</style>
+      {isLoading && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/10">
+          <div className="flex flex-col items-center gap-4">
+            {/* Themed square loader */}
+            <div className="relative w-12 h-12">
+              {/* Base square */}
+              <div className="absolute inset-0 bg-[#E63946] shadow-[8px_8px_0_#0B1F3F]"></div>
+              {/* Animated inner square */}
+              <div className="absolute inset-1 bg-white animate-[squarePulse_0.9s_ease-in-out_infinite]"></div>
+            </div>
+
+            <p className="text-sm font-medium text-[#0B1F3F] tracking-wide">
+              Loading…
+            </p>
+          </div>
+        </div>
+      )}
 
       <Footer />
       <SquareLoader />
