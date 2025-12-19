@@ -66,6 +66,8 @@ export default function Contact() {
         { value: "mobile-app", label: "Mobile App Development" },
         { value: "ui-ux-design", label: "UI/UX Design" },
         { value: "digital-marketing", label: "Digital Marketing" },
+        { value: "software development", label: "software development" },
+        { value: "Website maintainence", label: "Website Maintainence" },
         { value: "consulting", label: "Consulting" },
         { value: "other", label: "Other" },
       ],
