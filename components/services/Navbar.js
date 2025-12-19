@@ -63,7 +63,7 @@ const BottomMenu = memo(({ isVisible, onClose }) => (
           </li>
         ))}
         <li>
-          <Link href="/contact">
+          <Link href="/Contact">
             <Button
               text="Contact ➔"
               height={42}
@@ -278,7 +278,7 @@ export default function Navbar() {
                 </div>
               ))}
               <div ref={(el) => (navItemsRef.current[4] = el)}>
-                <Link href="/contact">
+                <Link href="/Contact">
                   <Button
                     text="Contact ➔"
                     height={50}
