@@ -266,11 +266,11 @@ export default function Contact() {
                   Phone
                 </p>
                 <a
-                  href="tel:+923001234567"
+                  href="tel:+923700959829"
                   className="block text-sm sm:text-lg md:text-xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
                   itemProp="telephone"
                 >
-                  +92 300 1234567
+                  +92 370 0959829
                 </a>
               </div>
             </div>
@@ -297,17 +297,16 @@ export default function Contact() {
                   Email
                 </p>
                 <a
-                  href="mailto:contact@example.com"
+                  href="mailto:am.coders.web@gmail.com"
                   className="block text-sm sm:text-lg md:text-xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent hover:from-[#E63946] hover:to-[#FACC15] transition-all duration-200 group-hover:translate-x-4 shadow-[4px_4px_0_rgba(230,57,70,0.3)] hover:shadow-[6px_6px_0_rgba(230,57,70,0.4)]"
                   itemProp="email"
                 >
-                  contact@example.com
+                  am.coders.web@gmail.com
                 </a>
               </div>
             </div>
           </div>
 
-          {/* JSON-LD Script for PostalAddress only if you still want it */}
           {/* You can remove this if ContactPage script above is enough */}
         </div>
 
