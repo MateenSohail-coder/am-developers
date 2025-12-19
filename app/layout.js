@@ -19,7 +19,7 @@ export const metadata = {
     template: "%s | AMDevs - Lahore's Top Web Development Agency",
   },
   description:
-    "AMDevs provides expert React, Next.js, fullstack development & SaaS solutions. Trusted by 50+ clients in Pakistan. +92 370 0959829 | amdevs@gmail.com",
+    "AMDevs provides expert React, Next.js, fullstack development & SaaS solutions. Trusted by 50+ clients in Pakistan. +92 370 0959829 | am.coders.web@gmail.com",
 
   // Open Graph / Social Media
   openGraph: {
@@ -40,13 +40,13 @@ export const metadata = {
     type: "website",
   },
 
-  // Twitter Card
+  // Twitter Card - Fixed URL consistency
   twitter: {
     card: "summary_large_image",
     title: "AMDevs - React & Next.js Development Experts",
     description:
       "Professional web development services with GSAP animations & fullstack solutions. Based in Lahore, Pakistan.",
-    images: ["https://amdevs.com/twitter-image.jpg"],
+    images: ["/amdev.png"], // Consistent with OG image
     creator: "@amdevs",
   },
 
@@ -63,15 +63,27 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://amdevs.com",
+    canonical: "https://am-developers.vercel.app/", // Fixed to match your domain
   },
 
   // Additional SEO fields
   applicationName: "AMDevs",
   referrer: "origin-when-cross-origin",
   keywords: [
+    "amdevs",
+    "am",
+    "am developers",
+    "AMDevs agency",
+    "React development",
+    "Next.js development",
+    "GSAP animations",
+    "fullstack development",
+    "SaaS solutions",
+    "Lahore web agency",
+    "Pakistan web development",
+    "Professional web development",
     "Web development",
-    "Software Developement",
+    "Software Development",
     "App development",
     "Digital marketing",
     "saas development",
@@ -81,6 +93,11 @@ export const metadata = {
   authors: [{ name: "AMDevs Team" }],
   creator: "AMDevs",
   publisher: "AMDevs",
+
+  // Icons
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export const viewport = {
@@ -88,6 +105,10 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B1F3F" },
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -98,7 +119,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        {/* Structured Data - Local Business */}
+        {/* Structured Data - Fixed schema errors */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -108,11 +129,11 @@ export default function RootLayout({ children }) {
               name: "AMDevs",
               description:
                 "Professional web development agency specializing in React, Next.js, GSAP animations and fullstack solutions",
-              url: "https://amdevs.com",
+              url: "https://am-developers.vercel.app/",
               telephone: "+923700959829",
               email: "am.coders.web@gmail.com",
               address: {
-                "@type": "899202",
+                "@type": "PostalAddress", // Fixed: was invalid "899202"
                 addressRegion: "Punjab",
                 addressCountry: "PK",
                 addressLocality: "Lahore",
@@ -135,8 +156,9 @@ export default function RootLayout({ children }) {
         />
       </head>
 
+      {/* 🧼 NEUTRAL BODY - Won't affect your theme */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
