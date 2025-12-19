@@ -9,13 +9,11 @@ const Bar = ({ desktopText, mobileText, id, arrow = true }) => {
           bg-gradient-to-r from-[#f2445a] to-[#f68484] 
           flex items-center md:gap-20 px-8 sm:px-20 
           text-white text-3xl sm:text-4xl lg:text-6xl font-bold 
-          border-4 border-[#d10000]
-          shadow-[0_10px_0_#8b0000] 
-          -translate-x-[4px] -translate-y-[8px]
+          border-4 border-[#d10000]           
           hover:-translate-x-[6px] hover:-translate-y-[12px] 
           hover:shadow-[0_14px_0_#8b0000]
-          active:shadow-[0_4px_0_#8b0000] 
-          active:translate-x-0 active:translate-y-0
+          shadow-[0_4px_0_#8b0000] 
+          translate-x-0 translate-y-0
           transition-all duration-200 
           rounded-none origin-bottom-right
         "

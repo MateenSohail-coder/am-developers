@@ -187,7 +187,7 @@ export default function AllServices() {
                 Full Services
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-[3px_3px_0_rgba(230,57,70,0.2)]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl pb-10 font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent mb-4 tracking-tight drop-shadow-[3px_3px_0_rgba(230,57,70,0.2)]">
               Everything You Need
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto text-slate-700 font-semibold leading-relaxed drop-shadow-[1px_1px_0_rgba(11,31,63,0.1)]">
