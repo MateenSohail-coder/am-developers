@@ -33,7 +33,7 @@ const NAV_ITEMS = [
 // Optimized BottomMenu with perfect spacing
 const BottomMenu = memo(({ isVisible, onClose }) => (
   <div
-    className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[95vw] max-w-6xl bg-white/95 backdrop-blur-xl rounded-3xl border border-[#0B1F3F]/10 shadow-2xl transition-all duration-500 ease-out ${
+    className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[90vw] max-w-6xl bg-white/95 backdrop-blur-xl rounded-0 border border-[#0B1F3F]/10 shadow-2xl transition-all duration-500 ease-out ${
       isVisible
         ? "translate-y-0 opacity-100"
         : "translate-y-12 opacity-0 pointer-events-none"

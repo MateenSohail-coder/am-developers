@@ -95,7 +95,7 @@ export default function Services() {
                 Services
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#E63946] bg-clip-text text-transparent mb-6 tracking-tight drop-shadow-[4px_4px_0_rgba(230,57,70,0.3)]">
+            <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-[#0B1F3F] to-[#0B1F3F] bg-clip-text text-transparent mb-6 tracking-tight drop-shadow-[4px_4px_0_rgba(230,57,70,0.70)]">
               Powerful Services for <br />
               <span className="block">Digital Growth</span>
             </h1>

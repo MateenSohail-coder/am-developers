@@ -121,26 +121,28 @@ export default function About() {
               className="space-y-8 lg:space-y-9 max-w-xl mx-auto lg:mx-0"
             >
               {/* Badge + Heading */}
-              <header className="space-y-3">
-                <div className="flex items-center justify-center md:justify-start gap-3">
-                  <span className="inline-flex items-center rounded-full border border-[#E63946]/30 bg-[#E63946]/5 px-3 py-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#E63946] mr-2" />
-                    <span className="text-[0.7rem] md:text-xs tracking-[0.25em] uppercase text-[#E63946]">
-                      About AM Devs
-                    </span>
+              <h1
+                className="
+    text-4xl md:text-5xl lg:text-6xl 
+    font-extrabold 
+    leading-tight 
+    text-slate-900 
+    text-center md:text-left
+    drop-shadow-[3px_3px_0_rgba(230,57,70,0.70)]
+    md:drop-shadow-[4px_4px_0_rgba(230,57,70,0.70)]
+  "
+              >
+                Your Long-Term Technology &{" "}
+                <span className="relative inline-block">
+                  <span
+                    className="relative z-10 text-[#E63946] drop-shadow-[3px_3px_0_#0b1f3fcb]
+    md:drop-shadow-[4px_4px_0_#0b1f3fcb]"
+                  >
+                    Growth Partner
                   </span>
-                </div>
-
-                <h1 className="text-3xl md:text-4xl lg:text-[2.6rem] font-extrabold leading-tight text-slate-900 text-center md:text-left">
-                  Your Long‑Term Technology &{" "}
-                  <span className="relative inline-block">
-                    <span className="relative z-10 text-[#E63946]">
-                      Growth Partner
-                    </span>
-                    <span className="absolute inset-x-0 -bottom-1 h-2 bg-[#E63946]/15 rounded-full -z-0" />
-                  </span>
-                </h1>
-              </header>
+                  <span className="absolute inset-x-0 -bottom-1 h-2 bg-[#E63946]/15 rounded-full -z-0" />
+                </span>
+              </h1>
 
               {/* Main copy */}
               <div className="space-y-4 text-base font-sans md:text-lg text-slate-600 leading-relaxed text-center md:text-left">

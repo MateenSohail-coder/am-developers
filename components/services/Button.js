@@ -16,7 +16,7 @@ export default function Button({
   return (
     <>
       <button
-        className={`brutal-btn ${fullWidth ? "brutal-btn--full" : ""}`}
+        className={`brutal-btn ${fullWidth ? "brutal-btn--full" : ""} `}
         style={{
           "--btn-height": `${height}px`,
           "--btn-font-size": `${fontSize}px`,

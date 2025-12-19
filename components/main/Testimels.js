@@ -175,12 +175,12 @@ export default function Testimonials() {
                 Clients
               </span>
             </div>
-            <h2
+            <h1
               id="testimonials-title"
-              className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#0B1F3F] via-[#E63946] to-[#FACC15] bg-clip-text text-transparent mb-4"
+              className="text-5xl md:text-6xl font-black bg-gradient-to-r from-[#E63946] to-[#E63946] bg-clip-text text-transparent mb-6 tracking-tight drop-shadow-[4px_4px_0_#0b1f3fc7]"
             >
-              Client Success Stories
-            </h2>
+              Client Success Stories <br />
+            </h1>
             <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
               Hear from our clients about their experience working with us.
             </p>

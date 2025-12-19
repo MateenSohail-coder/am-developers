@@ -1,5 +1,8 @@
-@import "tailwindcss";
-
+@import "https://fonts.cdnfonts.com/css/designer-thickers"
+;@import "tailwindcss";
+.font-beyonders { 
+  font-family: 'Designer Thickers', sans-serif;
+}
 /* :root {
   --background: #ffffff;
   --foreground: #171717;

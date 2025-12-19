@@ -9,10 +9,12 @@ import React from "react";
 import CTA from "@/components/services/CTA";
 import SquareLoader from "@/components/services/Loader";
 import Bar from "@/components/services/bar";
+import WhatsAppButton from "@/components/services/Whatsapp";
 
 export default function Home() {
   return (
     <div>
+      <WhatsAppButton />
       <Navbar />
       <HeroSection />
       <About />
