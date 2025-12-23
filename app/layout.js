@@ -117,6 +117,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/myfavicon.png" sizes="32x32" />
+        <link rel="shortcut icon" href="/myfavicon.png" />
+        <link rel="apple-touch-icon" href="/myfavicon.png" />
+
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
