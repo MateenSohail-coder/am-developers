@@ -96,7 +96,9 @@ export const metadata = {
 
   // Icons
   icons: {
-    icon: "/favicon.ico",
+    icon: "/myfavicon.png", // Your uploaded favicon
+    shortcut: "/myfavicon.png", // optional, for older browsers
+    apple: "/myfavicon.png", // optional, for Apple devices
   },
 };
 
